@@ -30,7 +30,6 @@ singularity run $SCRATCH/fmriprep.simg \
     --skip-bids-validation \
     --md-only-boilerplate \
     --fs-license-file $FS_LICENSE \
-    --fs-no-reconall \
     --nthreads $nthreads \
     --stop-on-first-crash \
     --mem_mb $mem_mb \
