@@ -3,8 +3,8 @@
 #Edits by Andrew Jahn, University of Michigan, 07.22.2020
 
 #User inputs:
-bids_root_dir=$HOME/Data/BREATHE_BIDS
-subj=s106
+bids_root_dir=/Users/ppwang/Data/ACT_UR_BIDS
+subj=0105
 nthreads=4
 mem=20 #gb
 container=docker #docker or singularity
