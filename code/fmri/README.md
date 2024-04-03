@@ -40,3 +40,4 @@ Change the `bids_root_dir` at `fmriprep_preproc.py`:
 
     python fmriprep_preproc.py
 
+## Functional Connectivity
