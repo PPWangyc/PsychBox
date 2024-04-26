@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J fmriprep
-#SBATCH --time=7-00:00:00 --qos long
+#SBATCH --time=48:00:00
 #SBATCH -n 1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=32G
 ##SBATCH -p normal,owners  # Queue names you can submit to
 # Outputs ----------------------------------
 #SBATCH -o log/%x-%A-%a.out
