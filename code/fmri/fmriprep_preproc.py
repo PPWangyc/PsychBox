@@ -1,13 +1,18 @@
 import os
-import sys
 import glob
-import argparse
-import subprocess
 import pandas as pd
+import argparse
 
-bids_root_dir = 'PATH_TO_YOUR_BIDS_DATASET'
-nthreads = 16
-mem = 128
+# set up the argument parser
+parser = argparse.ArgumentParser(description='Run fmriprep on all subjects in a BIDS dataset')
+parser.add_argument('bids_root_dir', type=str, help='The root directory of the BIDS dataset')
+parser.add_argument('nthreads', type=int, default=16, help='Number of threads to use for fmriprep')
+parser.add_argument('mem', type=int, default=128, help='Amount of memory to use for fmriprep')
+args = parser.parse_args()
+
+bids_root_dir = args.bids_root_dir
+nthreads = args.nthreads
+mem = args.mem
 # get subject list under bids_root_dir
 subject_list = [x.split('/')[-1] for x in glob.glob(os.path.join(bids_root_dir, 'sub-*'))]
 subject_list = [x.split('-')[-1] for x in subject_list]
