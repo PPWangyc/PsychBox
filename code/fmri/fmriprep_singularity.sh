@@ -23,7 +23,7 @@ export FS_LICENSE=$HOME/fsl_license.txt
 
 unset PYTHONPATH
 
-singularity run $SCRATCH/fmriprep.simg \
+singularity run $OAK/ppwang/fmriprep.simg \
     $bids_root_dir $bids_root_dir/derivatives/fmriprep \
     participant \
     --participant-label $subj \
@@ -33,4 +33,4 @@ singularity run $SCRATCH/fmriprep.simg \
     --nthreads $nthreads \
     --stop-on-first-crash \
     --mem_mb $mem_mb \
-    --work-dir $SCRATCH/Work
+    --work-dir $OAK/Work
