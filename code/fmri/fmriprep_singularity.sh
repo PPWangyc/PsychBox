@@ -33,4 +33,4 @@ singularity run $OAK/ppwang/fmriprep.simg \
     --nthreads $nthreads \
     --stop-on-first-crash \
     --mem_mb $mem_mb \
-    --work-dir $OAK/Work
+    --work-dir $SCRATCH/Work
