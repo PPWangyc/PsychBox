@@ -6,3 +6,6 @@ __pycache__
 .DS_Store
 *.txt
 *.npy
+*nii*
+*tsv
+*.zip
