@@ -6,6 +6,12 @@ __pycache__
 .DS_Store
 *.txt
 *.npy
+<<<<<<< HEAD
 log
 *.zip
 *.tar
+=======
+*nii*
+*tsv
+*.zip
+>>>>>>> 719aad72b45fa73a7ea2301d5fd274d1cbc8b02d
