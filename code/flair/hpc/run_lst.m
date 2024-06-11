@@ -2,7 +2,7 @@
 spm_jobman('initcfg');
 
 % Define paths to your FLAIR and optional reference images
-flair_images = {'path/to/flair1.nii'}; % Add paths as needed
+flair_images = {flair_path}; % Add paths as needed
 reference_images = {}; % Ensure matching order and count with FLAIR images
 
 % Specify whether to generate HTML reports (1 for yes, 0 for no)
@@ -14,6 +14,6 @@ job.data_coreg = reference_images; % Can be empty if not using coregistration
 job.html_report = html_report;
 
 % Call the function
-ps_LST_lpa(job);
+ps_LST_lpa(flair_path, '', 1);
 
 % Optionally, add additional code to handle outputs, logs, or further processing
