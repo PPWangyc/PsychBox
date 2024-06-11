@@ -6,7 +6,6 @@
 #SBATCH --time=12:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
-#SBATCH --mail-type=ALL
 
 FLAIR_PATH=${1}
 

@@ -24,6 +24,7 @@ if not os.path.exists(os.path.join(bids_root_dir, 'derivatives')):
 if not os.path.exists(os.path.join(bids_root_dir, 'derivatives', 'spm')):
     os.mkdir(os.path.join(bids_root_dir, 'derivatives', 'spm'))
 
+df = pd.DataFrame(columns=['subject', 'session', 'lesion_volume'])
 for subject in subject_list:
     html_path = os.path.join(bids_root_dir, 'derivatives','spm', 'sub-{}'.format(subject), 'ses-*', 'anat', 'report_LST_lpa_mwsub-{}*FLAIR_preproc.html'.format(subject))
     html_files = glob.glob(html_path)
@@ -46,9 +47,9 @@ for subject in subject_list:
     # Print or process the lesion volume
     print("Lesion Volume:", lesion_volume)
     # create a dataframe to store the lesion volume
-    df = pd.DataFrame({'subject': [subject], 'session': [session], 'lesion_volume': [lesion_volume]})
+    df = df.append({'subject': subject, 'session': session, 'lesion_volume': lesion_volume}, ignore_index=True)
     # save the dataframe to a csv file
-    csv_file = os.path.join(bids_root_dir, 'derivatives', 'spm', 'lesion_volume.csv')
-    df.to_csv(csv_file, index=False)
+csv_file = os.path.join(bids_root_dir, 'derivatives', 'spm', 'lesion_volume.csv')
+df.to_csv(csv_file, index=False)
 
 print('Done!')
