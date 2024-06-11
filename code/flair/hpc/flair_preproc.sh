@@ -3,7 +3,7 @@
 #SBATCH --output=preproc_flair"%j".out
 #SBATCH --error=preproc_flair."%j".err
 #SBATCH --partition=normal
-#SBATCH --time=15:10:00
+#SBATCH --time=12:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 #SBATCH --mail-type=ALL
