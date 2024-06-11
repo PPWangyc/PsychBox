@@ -4,20 +4,15 @@
 % cfg_basicio BasicIO - Unknown
 %-----------------------------------------------------------------------
 
-subject = '0107';
-session='01';
-root_dir = getenv('USERPROFILE');
-flair_path = inputs{1}{1};
+global flair_path;
+disp('Running batch_preproc_structural_job.m');
 data_dir = flair_path;
+disp(['data_dir: ' data_dir]);
 spm_dir = '/oak/stanford/groups/fvlin/ppwang/spm12';
-user = getenv('username');
+[folder_path, file_name, ext] = fileparts(data_dir);
+file_name = [file_name '_preproc' ext];
 
-% check whether the files have been unzipped
-if ~exist([data_dir filesep 'sub-' subject filesep 'ses-' session filesep 'anat' filesep 'sub-' subject '_ses-' session '_FLAIR.nii'], 'file')
-    gunzip([data_dir filesep 'sub-' subject filesep 'ses-' session filesep 'anat' filesep 'sub-' subject '_ses-' session '_FLAIR.nii.gz']);
-end
-
-matlabbatch{1}.spm.spatial.preproc.channel.vols = {[data_dir filesep 'sub-' subject filesep 'ses-' session filesep 'anat' filesep 'sub-' subject '_ses-' session '_FLAIR.nii']};
+matlabbatch{1}.spm.spatial.preproc.channel.vols = {[data_dir]};
 matlabbatch{1}.spm.spatial.preproc.channel.biasreg = 0.001;
 matlabbatch{1}.spm.spatial.preproc.channel.biasfwhm = 60;
 matlabbatch{1}.spm.spatial.preproc.channel.write = [0 1];
@@ -66,7 +61,7 @@ matlabbatch{3}.spm.util.imcalc.input(1) = cfg_dep('Segment: Bias Corrected (1)',
 matlabbatch{3}.spm.util.imcalc.input(2) = cfg_dep('Segment: c1 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{1}, '.','c', '()',{':'}));
 matlabbatch{3}.spm.util.imcalc.input(3) = cfg_dep('Segment: c2 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{2}, '.','c', '()',{':'}));
 matlabbatch{3}.spm.util.imcalc.input(4) = cfg_dep('Segment: c3 Images', substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','tiss', '()',{3}, '.','c', '()',{':'}));
-matlabbatch{3}.spm.util.imcalc.output = 'skullStripped_biasCorrected_FLAIR.nii';
+matlabbatch{3}.spm.util.imcalc.output = file_name;
 matlabbatch{3}.spm.util.imcalc.outdir(1) = cfg_dep('Get Pathnames: Directories', substruct('.','val', '{}',{2}, '.','val', '{}',{1}, '.','val', '{}',{1}), substruct('.','p'));
 matlabbatch{3}.spm.util.imcalc.expression = 'i1 .* (i2 + i3 + i4)';
 matlabbatch{3}.spm.util.imcalc.var = struct('name', {}, 'value', {});
