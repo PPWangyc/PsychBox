@@ -1,8 +1,14 @@
 import os
 import json
+import argparse
 
+# parse the arguments
+parser = argparse.ArgumentParser(description='Update the slice timing in the json files')
+parser.add_argument('--bids_root_dir', type=str, help='The root directory of the BIDS dataset')
+parser.add_argument('--ses', type=str, help='The session number')
+args = parser.parse_args()
 # list directories under the data directory
-data_dir = '/oak/stanford/groups/fvlin/ACT/data/bids/T1_baseline/ASU'
+data_dir = args.bids_root_dir
 dirs = os.listdir(data_dir)
 
 # only remain directories that contain 'sub-'
@@ -11,7 +17,7 @@ for subj in dirs:
     subj_path = os.path.join(data_dir, subj)
     # find all ses- directories
     ses_dirs = os.listdir(subj_path)
-    ses_dir_path = os.path.join(subj_path, 'ses-01')
+    ses_dir_path = os.path.join(subj_path, 'ses-{}'.format(args.ses))
     func_dir = os.path.join(ses_dir_path, 'func')
     # find json files in the func directory
     func_files = os.listdir(func_dir)
