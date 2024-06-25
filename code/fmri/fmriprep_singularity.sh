@@ -23,7 +23,7 @@ export FS_LICENSE=$HOME/fsl_license.txt
 
 unset PYTHONPATH
 
-singularity run $OAK/ppwang/fmriprep.simg \
+singularity run $OAK/ppwang/fmriprep_23.2.1.simg \
     $bids_root_dir $bids_root_dir/derivatives/fmriprep \
     participant \
     --participant-label $subj \
