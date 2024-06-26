@@ -25,31 +25,40 @@ if not os.path.exists(os.path.join(bids_root_dir, 'derivatives', 'spm')):
     os.mkdir(os.path.join(bids_root_dir, 'derivatives', 'spm'))
 
 df = pd.DataFrame(columns=['subject', 'session', 'lesion_volume'])
+fail_list = []
 for subject in subject_list:
-    html_path = os.path.join(bids_root_dir, 'derivatives','spm', 'sub-{}'.format(subject), 'ses-*', 'anat', 'report_LST_lpa_mwsub-{}*FLAIR_preproc.html'.format(subject))
-    html_files = glob.glob(html_path)
-    print(html_path)
-    assert len(html_files) == 1, 'Incorrect number of HTML files found for subject {}: {}'.format(subject, html_files)
-    html_file = html_files[0]
-    session = html_file.split('/')[-3]
-    # read html file
-    with open(html_file, 'r') as f:
-        html = f.read()
-    soup = BeautifulSoup(html, 'html.parser')
-    # Find the table data containing "Lesion volume"
-    volume_text = soup.find(text=re.compile('Lesion volume'))
-    if volume_text:
-        volume_td = volume_text.find_next('td')  # Find the next td element after the "Lesion volume" text
-        lesion_volume = volume_td.text.strip() if volume_td else 'Volume not found'
-    else:
-        lesion_volume = 'Volume not found'
+    try:
+        html_path = os.path.join(bids_root_dir, 'derivatives','spm', 'sub-{}'.format(subject), 'ses-*', 'anat', 'report_LST_lpa_mwsub-{}*FLAIR_preproc.html'.format(subject))
+        html_files = glob.glob(html_path)
+        print(html_path)
+        assert len(html_files) == 1, 'Incorrect number of HTML files found for subject {}: {}'.format(subject, html_files)
+        html_file = html_files[0]
+        session = html_file.split('/')[-3]
+        # read html file
+        with open(html_file, 'r') as f:
+            html = f.read()
+        soup = BeautifulSoup(html, 'html.parser')
+        # Find the table data containing "Lesion volume"
+        volume_text = soup.find(text=re.compile('Lesion volume'))
+        if volume_text:
+            volume_td = volume_text.find_next('td')  # Find the next td element after the "Lesion volume" text
+            lesion_volume = volume_td.text.strip() if volume_td else 'Volume not found'
+        else:
+            lesion_volume = 'Volume not found'
 
-    # Print or process the lesion volume
-    print("Lesion Volume:", lesion_volume)
-    # create a dataframe to store the lesion volume
-    df = df.append({'subject': subject, 'session': session, 'lesion_volume': lesion_volume}, ignore_index=True)
-    # save the dataframe to a csv file
+        # Print or process the lesion volume
+        print("Lesion Volume:", lesion_volume)
+        # create a dataframe to store the lesion volume
+        df = df.append({'subject': subject, 'session': session, 'lesion_volume': lesion_volume}, ignore_index=True)
+        # save the dataframe to a csv file
+    except Exception as e:
+        print('Failed to process subject {}: {}'.format(subject, e))
+        fail_list.append(subject)
 csv_file = os.path.join(bids_root_dir, 'derivatives', 'spm', 'lesion_volume.csv')
 df.to_csv(csv_file, index=False)
 
+if fail_list:
+    print('Failed to process the following subjects: {}'.format(fail_list))
+else:
+    print('All subjects processed successfully!')
 print('Done!')
