@@ -1,0 +1,28 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2022 The MathWorks, Inc.
+             R2022b Update 2 (9.13.0.2105380) 64-bit (glnxa64)
+                              October 26, 2022
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+
+------------------------------------------------------------------------
+This is LST                         www.statistical-modeling.de/lst.html
+Algorithm:                             Lesion prediction algorithm (LPA)
+If anything goes wrong:                      LST_log_20240625_221332.txt
+Number of jobs to process:                                             1
+Coregister to reference images:                                       no
+
+Working on job                                         1 out of 1 (100%)
+Current directory ..._baseline/UMN/derivatives/spm/sub-0679/ses-01/anat
+Preprocessing of wsub-0679_ses-01_FLAIR_preproc.nii                 123s
+Rough segmentation of FLAIR                                           5s
+Predict lesion probabilities                                          1s
+Clean up                                                              5s
+Create HTML report                                                   78s
+Finished successfully                               25-Jun-2024 22:17:11
+
+------------------------------------------------------------------------
