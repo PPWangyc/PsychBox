@@ -19,14 +19,24 @@ if not os.path.exists(os.path.join(bids_root_dir, 'derivatives')):
 if not os.path.exists(os.path.join(bids_root_dir, 'derivatives', 'spm')):
     os.mkdir(os.path.join(bids_root_dir, 'derivatives', 'spm'))
 
+fail_list = []
 for subject in subject_list:
-    flair_path = os.path.join(bids_root_dir, 'derivatives','spm', 'sub-{}'.format(subject), 'ses-*', 'anat', 'wsub-{}*FLAIR_preproc.nii'.format(subject))
-    flair_files = glob.glob(flair_path)
-    print(flair_path)
-    assert len(flair_files) == 1, 'Incorrect number of FLAIR files found for subject {}: {}'.format(subject, flair_files)
-    session = flair_files[0].split('/')[-3]
-    command = 'sbatch wmh_process.sh {}'.format(flair_files[0])
-    print(command)
-    os.system(command)
+    try:
+        flair_path = os.path.join(bids_root_dir, 'derivatives','spm', 'sub-{}'.format(subject), 'ses-*', 'anat', 'wsub-{}*FLAIR_preproc.nii'.format(subject))
+        flair_files = glob.glob(flair_path)
+        print(flair_path)
+        assert len(flair_files) == 1, 'Incorrect number of FLAIR files found for subject {}: {}'.format(subject, flair_files)
+        session = flair_files[0].split('/')[-3]
+        command = 'sbatch wmh_process.sh {}'.format(flair_files[0])
+        print(command)
+        os.system(command)
+    except Exception as e:
+        print('Failed to process subject {}: {}'.format(subject, e))
+        fail_list.append(subject)
+
+if len(fail_list) > 0:
+    print('Failed to process the following subjects: {}'.format(fail_list))
+else:
+    print('All subjects processed successfully!')
 
 print('Done!')
