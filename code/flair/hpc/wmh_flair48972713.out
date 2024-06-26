@@ -8,3 +8,21 @@
 To get started, type doc.
 For product information, visit www.mathworks.com.
  
+
+------------------------------------------------------------------------
+This is LST                         www.statistical-modeling.de/lst.html
+Algorithm:                             Lesion prediction algorithm (LPA)
+If anything goes wrong:                      LST_log_20240625_221321.txt
+Number of jobs to process:                                             1
+Coregister to reference images:                                       no
+
+Working on job                                         1 out of 1 (100%)
+Current directory ..._baseline/UMN/derivatives/spm/sub-0866/ses-01/anat
+Preprocessing of wsub-0866_ses-01_FLAIR_preproc.nii                  80s
+Rough segmentation of FLAIR                                           2s
+Predict lesion probabilities                                          0s
+Clean up                                                              2s
+Create HTML report                                                   40s
+Finished successfully                               25-Jun-2024 22:15:29
+
+------------------------------------------------------------------------
